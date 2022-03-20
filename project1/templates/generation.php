@@ -11,8 +11,9 @@ function generation_head_menu ($mysqli,$auth) {
 
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="http://localhost:63342/project1/index.php">Home</a>
+
             <ul class="navbar-nav mr-auto">
+                <a class="navbar-brand" href="http://localhost:63342/project1/index.php">Home</a>
                 <?php
                 while ($rowTopic = $resSQL -> fetch_assoc()) {
                     echo '<li class="nav-item"><a class="nav-link" href="./topic.php?id_topic='. $rowTopic["id"] .'">'. $rowTopic['name'].'</a></li>';

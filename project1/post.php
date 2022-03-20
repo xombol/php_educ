@@ -43,7 +43,7 @@ $detail_name = $id_article;
 <div class="comments container">
     <hr>
     <form action="<?= $_SERVER["SCRIPT_NAME"] ?>">
-        <textarea name="comment" id="" style="width:800px; height:50px;"></textarea>
+        <textarea name="comment" id="" style="max-width: 800px;height:50px;width: 100%;"></textarea>
         <input type="hidden" name="id_article" value="<?php echo $id_article ?>">
         <input name="doGo" type="submit" value="Отправить">
     </form>
