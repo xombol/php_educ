@@ -1,16 +1,17 @@
 <?php
 include_once "mysqlConnect.php";
+include_once "session_main.php";
 // include_once "../style/css/headStyle.css";
 
 //menu generation
-function generation_head_menu ($mysqli) {
+function generation_head_menu ($mysqli,$auth) {
     $sql = "SELECT * FROM `topic`";
     $resSQL = $mysqli -> query($sql);
     ?>
 
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="http://localhost:63342/project1/index.php">Главная</a>
+            <a class="navbar-brand" href="http://localhost:63342/project1/index.php">Home</a>
             <ul class="navbar-nav mr-auto">
                 <?php
                 while ($rowTopic = $resSQL -> fetch_assoc()) {
@@ -18,14 +19,25 @@ function generation_head_menu ($mysqli) {
                 }
                 ?>
             </ul>
+            <?php
+            if ($auth->isAuth()) {
+                ?>
+                <spa>User: </spa><span style="color: red">&nbsp; <?=$auth->getLogin() ?> </span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <a class="navbar-brand" href="http://localhost:63342/project1/auth.php">Exit</a>
+                <?php
+            } else { ?>
+                <a class="navbar-brand" href="http://localhost:63342/project1/auth.php">Login</a>
+                <?php
+            }
+            ?>
         </nav>
+
     </header>
+
+
+
     <?php
 }
-
-
-
-
 function generation_posts_index ($mysqli) {
     $sql = "SELECT * FROM `articles`";
     $res = $mysqli -> query($sql);
@@ -45,14 +57,13 @@ function generation_posts_index ($mysqli) {
         echo "Нет статей";
     }
 }
-
 function generation_breadcrumb($mysqli, $id_topic, $detail_name){
     $sql = "SELECT * FROM `topic` WHERE `id` = $id_topic";
     $res2 = $mysqli -> query($sql);
-?>
+        ?>
     <ul class="breadcrumb">
         <li> <span> Home > </span></li>
-<?php
+    <?php
         while ($resArticle = $res2 -> fetch_assoc()) {
             ?>
             <li> <span>  <?= $resArticle["name"]?>  </span></li>
@@ -66,8 +77,6 @@ function generation_breadcrumb($mysqli, $id_topic, $detail_name){
     </ul>
         <?php
 }
-
-
 function geot_id_topic_detail ($mysqli, $id_topic_detail, $detail_name) {
     $sql = "SELECT * FROM `articles` WHERE `id` = $id_topic_detail";
     $res2 = $mysqli -> query($sql);
@@ -95,7 +104,6 @@ function geot_id_topic_detail ($mysqli, $id_topic_detail, $detail_name) {
     </ul>
     <?php
 }
-
 // page categories
 function generation_posts_topic ($mysqli, $id_topic) {
     $sql = "SELECT * FROM `articles` WHERE `id_topic` = $id_topic";
@@ -119,7 +127,6 @@ function generation_posts_topic ($mysqli, $id_topic) {
 
 
 }
-
 function generation_post ($mysqli, $id_article) {
     $sql = "SELECT * FROM `articles` WHERE `id` = '$id_article'";
     $res = $mysqli -> query($sql);
@@ -132,7 +139,6 @@ function generation_post ($mysqli, $id_article) {
         <?php
     }
 }
-
 function generation_comment ($mysqli, $id_article) {
     $sql = "SELECT * FROM `comments` WHERE `id_article` = $id_article";
     $resSQL = $mysqli -> query($sql);
