@@ -27,6 +27,7 @@ class EvenAddUserINGroup
 				 foreach ($arFields["GROUP_ID"] as $key => $new_gr ){
 					if(($new_gr["GROUP_ID"]) == '8'){
 						/* 
+						  * https://dev.1c-bitrix.ru/api_help/main/reference/cevent/send.php
 						  * Вызво почтового шаблона 
 						  * Так же моно передать ID добавленного пользователя 
 						  * $arFields["ID"]
