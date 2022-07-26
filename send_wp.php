@@ -1,5 +1,5 @@
 
-
+<?
 // Вызываем функцию для перехвата данных
 add_action( 'wpcf7_mail_sent', 'your_wpcf7_mail_sent_function' );
 function your_wpcf7_mail_sent_function( $contact_form ) {
